@@ -1,0 +1,7 @@
+Doxyfile*
+html/
+latex/
+.vscode/
+*.o
+main
+check
