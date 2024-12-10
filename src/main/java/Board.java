@@ -23,6 +23,10 @@ public class Board {
 
     }
 
+    public Board(Integer size) {
+        this(size, size);
+    }
+
     /**
      * Liga uma célula do tabuleiro.
      */
