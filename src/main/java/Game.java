@@ -9,14 +9,22 @@ public class Game {
         n = size;
    }
 
-   public void place(Integer player, Integer x, Integer y) {
-        // TODO: Validar posição
+   private boolean checkValid(Board a, Board b, Integer x, Integer y) {
+        return !a.get(x, y) && !b.get(x, y);
+   }
+   public void place(Integer player, Integer x, Integer y) throws InvalidMoveException {
+        try {
+            if (!checkValid(p2, p1, x, y)) 
+                throw new InvalidMoveException("Célula ocupada");
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new InvalidMoveException("Célula inexistente");
+        }
+
         if (player == 0) {
             p1.set(x, y);
         } else {
             p2.set(x,y);
         }
-
    }
 
    public String toString() {
@@ -42,4 +50,11 @@ public class Game {
 
         return out;
    }
+}
+
+
+class InvalidMoveException extends Exception {
+    public InvalidMoveException(String m) {
+        super(m);
+    }
 }
