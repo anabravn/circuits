@@ -10,30 +10,42 @@ public class GameTest {
         g = new Game(10);
     }
 
-    @Test
-    public void TestPlaceOccupied() {
-        Exception ex = assertThrows(InvalidMoveException.class, () -> {
-            g.place(1, 2, 2);
-            g.place(0, 2, 2);
-        });
+    @Nested
+    class TestMove {
+        @Test
+        public void TestMoveOccupied() {
+            Exception ex = assertThrows(InvalidMoveException.class, () -> {
+                g.move(1, 2, 2);
+                g.move(0, 2, 2);
+            });
 
-        assertTrue(ex.getMessage().contains("Célula ocupada"));
-    }
+            assertTrue(ex.getMessage().contains("Célula ocupada"));
+        }
 
-    @Test
-    public void TestPlaceOutOfBonds() {
-        Exception ex = assertThrows(InvalidMoveException.class, () -> {
-            g.place(1, 20, 20);
-        });
+        @Test
+        public void TestMoveOutOfBonds() {
+            Exception ex = assertThrows(InvalidMoveException.class, () -> {
+                g.move(1, 20, 20);
+            });
 
-        assertTrue(ex.getMessage().contains("Célula inexistente"));
-    }
+            assertTrue(ex.getMessage().contains("Célula inexistente"));
+        }
 
-    @Test
-    public void TestPlaceValid() {
-        assertDoesNotThrow(() -> {
-            g.place(1, 0, 0);
-            g.place(0, 0, 1);
-        });
+        @Test
+        public void TestMoveNegative() {
+            Exception ex = assertThrows(InvalidMoveException.class, () -> {
+                g.move(1, -1, 0);
+            });
+
+            assertTrue(ex.getMessage().contains("Célula inexistente"));
+        }
+
+        @Test
+        public void TestMoveOkay() {
+            assertDoesNotThrow(() -> {
+                g.move(1, 0, 0);
+                g.move(0, 0, 1);
+            });
+        }
     }
 }

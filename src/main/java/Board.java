@@ -133,13 +133,23 @@ public class Board {
     }
 
     public boolean hasCircuit(Integer[] parent) {
-
         for (int i = 0; i < size - 1; i++ ) {
             if ((i+1) % width != 0 && 
                 get(i) && get(i+1) && 
                 parent[i] != -1 && parent[i+1] != i) {
                     return true;
                 }
+        }
+
+        return false;
+    }
+
+    public boolean hasCircuit() {
+        for(int i = 0; i < size; i++) {
+            Integer[] p = DepthFirstSearch(i);
+
+            if (hasCircuit(p))
+                return true;
         }
 
         return false;

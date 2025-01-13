@@ -9,14 +9,28 @@ public class Game {
         n = size;
    }
 
-   private boolean checkValid(Board a, Board b, Integer x, Integer y) {
+   public Integer checkWinner() {
+        if(p1.hasCircuit()) 
+            return 0;
+        else if(p2.hasCircuit())
+            return 1;
+        
+        return -1;
+   }
+
+   private boolean checkOccupied(Board a, Board b, Integer x, Integer y) {
         return !a.get(x, y) && !b.get(x, y);
    }
-   public void place(Integer player, Integer x, Integer y) throws InvalidMoveException {
+
+   public void move(Integer player, Integer x, Integer y) throws InvalidMoveException {
         try {
-            if (!checkValid(p2, p1, x, y)) 
+            if (!checkOccupied(p2, p1, x, y)) 
                 throw new InvalidMoveException("Célula ocupada");
         } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new InvalidMoveException("Célula inexistente");
+        }
+
+        if (x >= n || y >= n || x < 0 || y < 0) {
             throw new InvalidMoveException("Célula inexistente");
         }
 
@@ -25,7 +39,8 @@ public class Game {
         } else {
             p2.set(x,y);
         }
-   }
+    }
+
 
    public String toString() {
         String out = "";
