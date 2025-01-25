@@ -3,8 +3,7 @@ import java.util.ArrayList;
 
 public class Game {
    ArrayList<Board> boards = new ArrayList<>();
-   Integer n;
-   Integer p;
+   Integer n, p, t = 0;
    
    public Game(Integer size, Integer players) {
         n = size;
@@ -20,8 +19,9 @@ public class Game {
 
    public Integer checkWinner() {
         for (int i = 0; i < p; i++) {
-            if (boards.get(i).hasCircuit())
+            if (boards.get(i).hasCircuit()) {
                 return i;
+            }
         }
 
         return -1;
@@ -44,9 +44,17 @@ public class Game {
         if (isOccupied(x, y)) 
             throw new Exceptions.InvalidMoveException("Célula ocupada");
 
-        boards.get(player).set(x, y);
+        if(t.equals(player)) {
+            boards.get(player).set(x, y);
+            t = (t + 1) % p;
+        } else {
+            throw new Exceptions.InvalidMoveException("Jogador " + (player + 1) + " não pode jogar agora.");
+        }
     }
 
+   public Integer getTurn() {
+        return t;
+   }
 
    public String toString() {
         String out = "";

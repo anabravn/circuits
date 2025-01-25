@@ -16,8 +16,8 @@ public class GameTest {
         @Test
         public void TestMoveOccupied() {
             Exception ex = assertThrows(Exceptions.InvalidMoveException.class, () -> {
-                g.move(1, 2, 2);
                 g.move(0, 2, 2);
+                g.move(1, 2, 2);
             });
 
             assertTrue(ex.getMessage().contains("Célula ocupada"));
@@ -26,7 +26,7 @@ public class GameTest {
         @Test
         public void TestMoveOutOfBonds() {
             Exception ex = assertThrows(Exceptions.InvalidMoveException.class, () -> {
-                g.move(1, 20, 20);
+                g.move(0, 20, 20);
             });
 
             assertTrue(ex.getMessage().contains("Célula inexistente"));
@@ -35,7 +35,7 @@ public class GameTest {
         @Test
         public void TestMoveNegative() {
             Exception ex = assertThrows(Exceptions.InvalidMoveException.class, () -> {
-                g.move(1, -1, 2);
+                g.move(0, -1, 2);
             });
 
             assertTrue(ex.getMessage().contains("Célula inexistente"));
@@ -44,8 +44,8 @@ public class GameTest {
         @Test
         public void TestMoveOkay() {
             assertDoesNotThrow(() -> {
-                g.move(1, 0, 0);
-                g.move(0, 0, 1);
+                g.move(0, 0, 0);
+                g.move(1, 0, 1);
             });
         }
     }
