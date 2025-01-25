@@ -1,4 +1,4 @@
-
+package game;
 public class Board {
     boolean[] board;
     Integer width;
@@ -58,7 +58,7 @@ public class Board {
         
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                out = out.concat(board[getIndex(j, i)] ? "x " : "  ");
+                out = out.concat(board[getIndex(j, i)] ? "x " : "- ");
             }
             out = out.concat("\n");
         }
@@ -88,6 +88,9 @@ public class Board {
     }
 
     private Integer getIndex(Integer x, Integer y) {
+        if (x >= width || x < 0 || y > height || y < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         return y * width + x;
     }
 

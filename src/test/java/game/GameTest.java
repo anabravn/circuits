@@ -1,6 +1,7 @@
+package game;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
     Game g;
@@ -14,7 +15,7 @@ public class GameTest {
     class TestMove {
         @Test
         public void TestMoveOccupied() {
-            Exception ex = assertThrows(InvalidMoveException.class, () -> {
+            Exception ex = assertThrows(Exceptions.InvalidMoveException.class, () -> {
                 g.move(1, 2, 2);
                 g.move(0, 2, 2);
             });
@@ -24,7 +25,7 @@ public class GameTest {
 
         @Test
         public void TestMoveOutOfBonds() {
-            Exception ex = assertThrows(InvalidMoveException.class, () -> {
+            Exception ex = assertThrows(Exceptions.InvalidMoveException.class, () -> {
                 g.move(1, 20, 20);
             });
 
@@ -33,8 +34,8 @@ public class GameTest {
 
         @Test
         public void TestMoveNegative() {
-            Exception ex = assertThrows(InvalidMoveException.class, () -> {
-                g.move(1, -1, 0);
+            Exception ex = assertThrows(Exceptions.InvalidMoveException.class, () -> {
+                g.move(1, -1, 2);
             });
 
             assertTrue(ex.getMessage().contains("Célula inexistente"));

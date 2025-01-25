@@ -1,4 +1,6 @@
+package game;
 import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest  {
@@ -10,7 +12,7 @@ public class BoardTest  {
         b.set(0, 0);
         
         String out = b.toString();
-        assertEquals("x     \n  x   \n    x \n", out);
+        assertEquals("x - - \n- x - \n- - x \n", out);
     }
     
     @Test
