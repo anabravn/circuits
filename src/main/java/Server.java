@@ -24,7 +24,6 @@ public class Server{
             System.exit(1);
         }
 
-        /* Registrando o objeto remoto no rmiregisty */
         try {
             Registry regOP = LocateRegistry.getRegistry();
             regOP.bind(objName, op);
