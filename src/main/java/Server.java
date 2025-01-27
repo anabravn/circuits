@@ -19,7 +19,7 @@ public class Server{
         try {
             op = (CircuitsInterface) UnicastRemoteObject.exportObject(op,0);
         } catch (RemoteException e) {
-            System.err.println("erro ao vincular objeto ");
+            System.err.println("Erro ao vincular objeto");
             e.printStackTrace();
             System.exit(1);
         }

@@ -21,7 +21,7 @@ public class Client {
       try {
           Registry registry = LocateRegistry.getRegistry(host,porta);
           server = (CircuitsInterface) registry.lookup(objName);
-          System.out.println("objeto: '"+objName+"' localizado no servidor: "+host);
+          System.out.println("Object: '"+objName+"' localizado no servidor: "+host);
       } catch (Exception e) {
           System.err.println(e);
           System.exit(1);
@@ -33,8 +33,8 @@ public class Client {
       try {
          player = server.join();
 
-         System.out.println("You are player " + (player + 1));
-         System.out.println("Waiting for players...");
+         System.out.println("Você é o jogador " + (player + 1));
+         System.out.println("Esperando por jogadores...");
 
          while (server.getPlayers() < 2)
             ;
@@ -73,10 +73,10 @@ public class Client {
             }
          }
 
-         System.out.printf("\nPlayer %d wins!\n", winner + 1);
+         System.out.printf("\nJogador %d vence!\n", winner + 1);
          scn.close();
       } catch (RemoteException ex) {
-         System.err.println("Unable to connect to server");
+         System.err.println("Erro ao conectar ao servidor");
          ex.printStackTrace();
       }
    }
