@@ -11,5 +11,6 @@ public interface CircuitsInterface extends Remote{
     public void move(Integer id, Integer x, Integer y) throws RemoteException, InvalidMoveException;
     public String getBoard() throws RemoteException;
     public boolean getTurn(Integer player) throws RemoteException;
-    public Integer checkWinner() throws RemoteException;
+    public Integer getWinner() throws RemoteException;
+    public Integer getPlayers() throws RemoteException;
 }

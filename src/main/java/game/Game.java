@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Game {
    ArrayList<Board> boards = new ArrayList<>();
    Integer n, p, t = 0;
+   Integer winner = -1;
    
    public Game(Integer size, Integer players) {
         n = size;
@@ -27,6 +28,10 @@ public class Game {
         return -1;
    }
 
+   public Integer getWinner() {
+        return winner;
+   }
+
    private boolean isOccupied(Integer x, Integer y) throws Exceptions.InvalidMoveException {
         for(int i = 0; i < p; i++) {
             try {
@@ -41,12 +46,17 @@ public class Game {
    }
 
    public void move(Integer player, Integer x, Integer y) throws  Exceptions.InvalidMoveException {
-        if (isOccupied(x, y)) 
-            throw new Exceptions.InvalidMoveException("Célula ocupada");
 
         if(t.equals(player)) {
+            if (isOccupied(x, y)) 
+                throw new Exceptions.InvalidMoveException("Célula ocupada");
+
             boards.get(player).set(x, y);
-            t = (t + 1) % p;
+            winner = checkWinner();
+
+            if (winner == -1)
+                t = (t + 1) % p;
+            else t = -1;
         } else {
             throw new Exceptions.InvalidMoveException("Jogador " + (player + 1) + " não pode jogar agora.");
         }

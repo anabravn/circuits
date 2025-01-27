@@ -11,22 +11,11 @@ public class Server{
         Integer porta=1099;
         String hostname="localhost";
 
-        /* Definição do nome do objeto */
         String objName = "Circuits:"+porta.toString();
         CircuitsInterface op = new CircuitsServer();
 	    
-
-        /*
-         * Alteração da propriedad hostname na JVM que roda este processo
-         * A propriedade java.rmi.server.hostname da máquina virtual java
-         * representa o nome que deve ser associado aos stubs dos clientes
-         * para que eles possam se vicular ao servidor.
-         * É comum utilizar o ip da máquina na rede, ou algum outro nome
-         * para a máquina que seja visivel pelos clientes.
-         */
         System.setProperty("java.rmi.server.hostname", hostname); 
 
-        /* Exportando o objeto remoto */
         try {
             op = (CircuitsInterface) UnicastRemoteObject.exportObject(op,0);
         } catch (RemoteException e) {

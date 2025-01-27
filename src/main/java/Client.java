@@ -5,15 +5,19 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
+
 public class Client {
+   static void clear() {
+      System.out.print("\033[H\033[2J"); 
+   }
+
    public static void main(String argv[]){
       String host="localhost";
       Integer porta = 1099;
 
-      /* definicao do nome do objeto remoto */
       String objName = "Circuits:"+porta.toString();
       CircuitsInterface server = null;
-      /* conexao ao objeto remoto */
+
       try {
           Registry registry = LocateRegistry.getRegistry(host,porta);
           server = (CircuitsInterface) registry.lookup(objName);
@@ -28,19 +32,30 @@ public class Client {
 
       try {
          player = server.join();
-         System.out.println("You are player " + (player + 1));
 
+         System.out.println("You are player " + (player + 1));
          System.out.println("Waiting for players...");
-         while (!server.init());
-         System.out.println("Game started!");
+
+         while (server.getPlayers() < 2)
+            ;
+            
+         server.init();
+
+         clear();
 
          while (winner == -1) {
             Integer x, y;
 
-            
-            while (!server.getTurn(player));
-            winner = server.checkWinner();
+            System.out.println(server.getBoard());
 
+            while (!server.getTurn(player)) {
+               winner = server.getWinner();
+
+               if (winner != -1)
+                  break;
+            }
+
+            clear();
             System.out.println(server.getBoard());
 
             if (winner == -1) {
@@ -52,12 +67,9 @@ public class Client {
 
                try {
                   server.move(player, x, y);
-                  winner = server.checkWinner();
                } catch (Exception ex) {
                   System.out.println(ex);
                }
-
-               System.out.println(server.getBoard());
             }
          }
 

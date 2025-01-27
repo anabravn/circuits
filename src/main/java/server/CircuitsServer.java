@@ -24,9 +24,22 @@ public class CircuitsServer implements CircuitsInterface {
         return -1;
     }
 
+    public void exit() throws RemoteException {
+        game = null;
+        players = 0;
+    }
+
+    public Integer getPlayers() throws RemoteException {
+        return players;
+    }
+
     public void move(Integer id, Integer x, Integer y) throws RemoteException, InvalidMoveException {
         if (game != null) {
                 game.move(id, x, y);
+                if (game.getWinner() != -1) {
+                    game = null;
+                    players = 0;
+                }
         }
     }
 
@@ -37,14 +50,14 @@ public class CircuitsServer implements CircuitsInterface {
     }
 
     public boolean getTurn(Integer player) throws RemoteException {
-        return game.getTurn().equals(player);
+        if (game != null)
+            return game.getTurn().equals(player);
+        return false;
     }
 
-    public Integer checkWinner() throws RemoteException {
-        if (game != null) {
-            return game.checkWinner();
-        }
-
-        return -1;
+    public Integer getWinner() throws RemoteException {
+        if (game != null)
+            return game.getWinner();
+        else return -1;
     }
 }
