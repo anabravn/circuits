@@ -9,12 +9,21 @@ import java.rmi.server.UnicastRemoteObject;
 public class Server{
     public static void main(String argv[]){
         Integer porta=1099;
-        String hostname="localhost";
+        String host="localhost";
+
+
+        if (argv.length > 1) { 
+            host=argv[0];
+         }
+   
+        if (argv.length >= 2) {
+            porta = Integer.parseInt(argv[1]);
+         }
 
         String objName = "Circuits:"+porta.toString();
         CircuitsInterface op = new CircuitsServer();
 	    
-        System.setProperty("java.rmi.server.hostname", hostname); 
+        System.setProperty("java.rmi.server.hostname", host); 
 
         try {
             op = (CircuitsInterface) UnicastRemoteObject.exportObject(op,0);

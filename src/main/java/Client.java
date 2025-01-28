@@ -15,6 +15,14 @@ public class Client {
       String host="localhost";
       Integer porta = 1099;
 
+      if (argv.length > 1) {
+         host=argv[0];
+      }
+
+     if(argv.length >= 2) {
+         porta = Integer.parseInt(argv[1]);
+      }
+
       String objName = "Circuits:"+porta.toString();
       CircuitsInterface server = null;
 
